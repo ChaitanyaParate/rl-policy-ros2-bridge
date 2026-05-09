@@ -23,16 +23,16 @@ class InterfaceNode(Node):
             'th_cmc', 'th_axl', 'th_mcp', 'th_ipl'
         ]
         
-        # Physical limits from right_hand.xml
+        # Visual limits (clamped to prevent fingers clipping in RViz)
         self.joint_limits = {
-            'mcp': [-0.314, 2.23],
+            'mcp': [-0.314, 1.2],
             'rot': [-1.047, 1.047],
-            'pip': [-0.506, 1.885],
-            'dip': [-0.366, 2.042],
-            'thumb_cmc': [-0.349, 2.094],
-            'thumb_axl': [-0.349, 2.094],
-            'thumb_mcp': [-0.47, 2.443],
-            'thumb_ipl': [-1.34, 1.88]
+            'pip': [-0.506, 1.2],
+            'dip': [-0.366, 1.2],
+            'thumb_cmc': [-0.349, 1.2],
+            'thumb_axl': [-0.349, 1.2],
+            'thumb_mcp': [-0.47, 1.2],
+            'thumb_ipl': [-1.34, 1.2]
         }
 
         # Mapping our 16 joints to their respective classes
@@ -49,14 +49,22 @@ class InterfaceNode(Node):
         
         # 100 Hz kinematic interpolator timer
         self.timer = self.create_timer(0.01, self.publish_callback)
+        
+        # 5-second reset timer to create a continuous looping animation in RViz
+        self.reset_timer = self.create_timer(5.0, self.reset_callback)
+
+    def reset_callback(self):
+        # Snap target positions back to 0 to simulate an environment reset
+        self.target_positions = [0.0] * 16
+        self.get_logger().info('Environment reset (visual loop).')
 
     def command_callback(self, msg):
         if len(msg.data) != 16:
             self.get_logger().warn(f'Expected 16 joint commands, got {len(msg.data)}')
             return
             
-        # Delta control: action in [-1, 1] scaled by max_delta (0.1 rad per step)
-        max_delta = 0.1
+        # Delta control: action in [-1, 1] scaled by max_delta (match env max_delta=0.05)
+        max_delta = 0.05
         for i in range(16):
             jtype = self.joint_types[i]
             low, high = self.joint_limits[jtype]

@@ -32,3 +32,12 @@ ros2_ws/log/
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Project Specific Documents (Not required for submission)
+Hiring_Tasks.pdf
+ROS2_Setup_Commands.docx
+TaskB_ROS2_Deployment.docx
+progress_report_taskB.md
+
+# Old / Unused Scripts
+generate_urdf.py

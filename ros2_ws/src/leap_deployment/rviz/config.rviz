@@ -40,9 +40,10 @@ Visualization Manager:
       Update Interval: 0
       Value: true
       Visual Enabled: true
+
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: palm
+    Fixed Frame: base_link
     Frame Rate: 30
   Name: root
   Tools:

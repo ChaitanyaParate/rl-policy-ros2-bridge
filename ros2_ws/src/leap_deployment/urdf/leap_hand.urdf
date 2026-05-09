@@ -1,300 +1,338 @@
 <?xml version="1.0"?>
-<robot name="leap_hand">
+<robot name="leap_grasp_scene">
+  <link name="base_link"/>
+
+  <joint name="base_link_to_table" type="fixed">
+    <parent link="base_link"/>
+    <child link="table"/>
+    <origin xyz="0 0 0" rpy="0.000000 0.000000 0.000000"/>
+    <axis xyz="0 0 1"/>
+    
+  </joint>
+  <link name="table">
+    <visual>
+      <origin xyz="0 0 0.025" rpy="0.000000 0.000000 0.000000"/>
+      <geometry>
+        <box size="0.6 0.6 0.05"/>
+      </geometry>
+      <material name="mat_table_top"><color rgba="0.6 0.4 0.2 1"/></material>
+    </visual>
+  </link>
+
+  <joint name="base_link_to_palm" type="fixed">
+    <parent link="base_link"/>
+    <child link="palm"/>
+    <origin xyz="0 0.04 0.16" rpy="0.000000 0.000000 0.000000"/>
+    <axis xyz="0 0 1"/>
+    
+  </joint>
   <link name="palm">
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry><box size="0.1 0.1 0.02"/></geometry>
-      <material name="blue">
-        <color rgba="0 0 0.8 1"/>
-      </material>
+      <origin xyz="-0.02 0.02575 -0.0347" rpy="0.000000 0.000000 0.000000"/>
+      <geometry>
+        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/palm_right.obj"/>
+      </geometry>
+      <material name="mat_palm"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
   </link>
 
   <joint name="if_mcp" type="revolute">
     <parent link="palm"/>
-    <child link="if_link_0"/>
-    <origin xyz="-0.01 0.04 0.05" rpy="0 0 0"/>
-    <axis xyz="0 1 0"/>
+    <child link="if_bs"/>
+    <origin xyz="-0.007 0.023 -0.0187" rpy="1.570793 1.570790 0.000003"/>
+    <axis xyz="0 0 -1"/>
     <limit lower="-3.14" upper="3.14" effort="10" velocity="10"/>
   </joint>
-
-  <link name="if_link_0">
+  <link name="if_bs">
     <visual>
-      <origin xyz="0 0 0.02" rpy="0 0 0"/>
-      <geometry><cylinder radius="0.008" length="0.04"/></geometry>
-      <material name="white">
-        <color rgba="1 1 1 1"/>
-      </material>
+      <origin xyz="0.0084 0.0077 0.01465" rpy="0.000000 0.000000 0.000000"/>
+      <geometry>
+        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/base.obj"/>
+      </geometry>
+      <material name="mat_if_bs"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
   </link>
 
   <joint name="if_rot" type="revolute">
-    <parent link="if_link_0"/>
-    <child link="if_link_1"/>
-    <origin xyz="0 0 0.04" rpy="0 0 0"/>
-    <axis xyz="0 1 0"/>
+    <parent link="if_bs"/>
+    <child link="if_px"/>
+    <origin xyz="-0.0122 0.0381 0.0145" rpy="-1.570790 0.000000 1.570790"/>
+    <axis xyz="0 0 -1"/>
     <limit lower="-3.14" upper="3.14" effort="10" velocity="10"/>
   </joint>
-
-  <link name="if_link_1">
+  <link name="if_px">
     <visual>
-      <origin xyz="0 0 0.02" rpy="0 0 0"/>
-      <geometry><cylinder radius="0.008" length="0.04"/></geometry>
-      <material name="white">
-        <color rgba="1 1 1 1"/>
-      </material>
+      <origin xyz="0.0096 0.0002 0.0007" rpy="-1.570793 -1.570790 0.000003"/>
+      <geometry>
+        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/proximal.obj"/>
+      </geometry>
+      <material name="mat_if_px"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
   </link>
 
   <joint name="if_pip" type="revolute">
-    <parent link="if_link_1"/>
-    <child link="if_link_2"/>
-    <origin xyz="0 0 0.04" rpy="0 0 0"/>
-    <axis xyz="0 1 0"/>
+    <parent link="if_px"/>
+    <child link="if_md"/>
+    <origin xyz="0.015 0.0143 -0.013" rpy="1.570793 -1.570790 -0.000003"/>
+    <axis xyz="0 0 -1"/>
     <limit lower="-3.14" upper="3.14" effort="10" velocity="10"/>
   </joint>
-
-  <link name="if_link_2">
+  <link name="if_md">
     <visual>
-      <origin xyz="0 0 0.02" rpy="0 0 0"/>
-      <geometry><cylinder radius="0.008" length="0.04"/></geometry>
-      <material name="white">
-        <color rgba="1 1 1 1"/>
-      </material>
+      <origin xyz="0.0211 -0.0084 0.0097" rpy="-3.141593 0.000000 0.000000"/>
+      <geometry>
+        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/medial.obj"/>
+      </geometry>
+      <material name="mat_if_md"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
   </link>
 
   <joint name="if_dip" type="revolute">
-    <parent link="if_link_2"/>
-    <child link="if_link_3"/>
-    <origin xyz="0 0 0.04" rpy="0 0 0"/>
-    <axis xyz="0 1 0"/>
+    <parent link="if_md"/>
+    <child link="if_ds"/>
+    <origin xyz="0 -0.0361 0.0002" rpy="0.000000 0.000000 0.000000"/>
+    <axis xyz="0 0 -1"/>
     <limit lower="-3.14" upper="3.14" effort="10" velocity="10"/>
   </joint>
-
-  <link name="if_link_3">
+  <link name="if_ds">
     <visual>
-      <origin xyz="0 0 0.02" rpy="0 0 0"/>
-      <geometry><cylinder radius="0.008" length="0.04"/></geometry>
-      <material name="white">
-        <color rgba="1 1 1 1"/>
-      </material>
+      <origin xyz="0.0132 -0.0061 0.0144" rpy="3.141593 0.000000 0.000000"/>
+      <geometry>
+        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/distal.obj"/>
+      </geometry>
+      <material name="mat_if_ds"><color rgba="0.5 0.5 0.5 1"/></material>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" rpy="0.000000 0.000000 0.000000"/>
+      <geometry>
+        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/tip.obj"/>
+      </geometry>
+      <material name="mat_if_ds"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
   </link>
 
   <joint name="mf_mcp" type="revolute">
     <parent link="palm"/>
-    <child link="mf_link_0"/>
-    <origin xyz="-0.01 0.0 0.05" rpy="0 0 0"/>
-    <axis xyz="0 1 0"/>
+    <child link="mf_bs"/>
+    <origin xyz="-0.0071 -0.0224 -0.0187" rpy="1.570793 1.570790 0.000003"/>
+    <axis xyz="0 0 -1"/>
     <limit lower="-3.14" upper="3.14" effort="10" velocity="10"/>
   </joint>
-
-  <link name="mf_link_0">
+  <link name="mf_bs">
     <visual>
-      <origin xyz="0 0 0.02" rpy="0 0 0"/>
-      <geometry><cylinder radius="0.008" length="0.04"/></geometry>
-      <material name="white">
-        <color rgba="1 1 1 1"/>
-      </material>
+      <origin xyz="0.0084 0.0077 0.01465" rpy="0.000000 0.000000 0.000000"/>
+      <geometry>
+        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/base.obj"/>
+      </geometry>
+      <material name="mat_mf_bs"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
   </link>
 
   <joint name="mf_rot" type="revolute">
-    <parent link="mf_link_0"/>
-    <child link="mf_link_1"/>
-    <origin xyz="0 0 0.04" rpy="0 0 0"/>
-    <axis xyz="0 1 0"/>
+    <parent link="mf_bs"/>
+    <child link="mf_px"/>
+    <origin xyz="-0.0122 0.0381 0.0145" rpy="-1.570790 0.000000 1.570790"/>
+    <axis xyz="0 0 -1"/>
     <limit lower="-3.14" upper="3.14" effort="10" velocity="10"/>
   </joint>
-
-  <link name="mf_link_1">
+  <link name="mf_px">
     <visual>
-      <origin xyz="0 0 0.02" rpy="0 0 0"/>
-      <geometry><cylinder radius="0.008" length="0.04"/></geometry>
-      <material name="white">
-        <color rgba="1 1 1 1"/>
-      </material>
+      <origin xyz="0.0096 0.0003 0.0007" rpy="-1.570793 -1.570790 0.000003"/>
+      <geometry>
+        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/proximal.obj"/>
+      </geometry>
+      <material name="mat_mf_px"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
   </link>
 
   <joint name="mf_pip" type="revolute">
-    <parent link="mf_link_1"/>
-    <child link="mf_link_2"/>
-    <origin xyz="0 0 0.04" rpy="0 0 0"/>
-    <axis xyz="0 1 0"/>
+    <parent link="mf_px"/>
+    <child link="mf_md"/>
+    <origin xyz="0.015 0.0143 -0.013" rpy="1.570793 -1.570790 -0.000003"/>
+    <axis xyz="0 0 -1"/>
     <limit lower="-3.14" upper="3.14" effort="10" velocity="10"/>
   </joint>
-
-  <link name="mf_link_2">
+  <link name="mf_md">
     <visual>
-      <origin xyz="0 0 0.02" rpy="0 0 0"/>
-      <geometry><cylinder radius="0.008" length="0.04"/></geometry>
-      <material name="white">
-        <color rgba="1 1 1 1"/>
-      </material>
+      <origin xyz="0.0211 -0.0084 0.0097" rpy="-3.141590 0.000000 0.000000"/>
+      <geometry>
+        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/medial.obj"/>
+      </geometry>
+      <material name="mat_mf_md"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
   </link>
 
   <joint name="mf_dip" type="revolute">
-    <parent link="mf_link_2"/>
-    <child link="mf_link_3"/>
-    <origin xyz="0 0 0.04" rpy="0 0 0"/>
-    <axis xyz="0 1 0"/>
+    <parent link="mf_md"/>
+    <child link="mf_ds"/>
+    <origin xyz="0 -0.0361 0.0002" rpy="0.000000 0.000000 0.000000"/>
+    <axis xyz="0 0 -1"/>
     <limit lower="-3.14" upper="3.14" effort="10" velocity="10"/>
   </joint>
-
-  <link name="mf_link_3">
+  <link name="mf_ds">
     <visual>
-      <origin xyz="0 0 0.02" rpy="0 0 0"/>
-      <geometry><cylinder radius="0.008" length="0.04"/></geometry>
-      <material name="white">
-        <color rgba="1 1 1 1"/>
-      </material>
+      <origin xyz="0.0132 -0.0061 0.0145" rpy="3.141590 0.000000 0.000000"/>
+      <geometry>
+        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/distal.obj"/>
+      </geometry>
+      <material name="mat_mf_ds"><color rgba="0.5 0.5 0.5 1"/></material>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" rpy="0.000000 0.000000 0.000000"/>
+      <geometry>
+        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/tip.obj"/>
+      </geometry>
+      <material name="mat_mf_ds"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
   </link>
 
   <joint name="rf_mcp" type="revolute">
     <parent link="palm"/>
-    <child link="rf_link_0"/>
-    <origin xyz="-0.01 -0.04 0.05" rpy="0 0 0"/>
-    <axis xyz="0 1 0"/>
+    <child link="rf_bs"/>
+    <origin xyz="-0.00709 -0.0678 -0.0187" rpy="1.570793 1.570790 0.000003"/>
+    <axis xyz="0 0 -1"/>
     <limit lower="-3.14" upper="3.14" effort="10" velocity="10"/>
   </joint>
-
-  <link name="rf_link_0">
+  <link name="rf_bs">
     <visual>
-      <origin xyz="0 0 0.02" rpy="0 0 0"/>
-      <geometry><cylinder radius="0.008" length="0.04"/></geometry>
-      <material name="white">
-        <color rgba="1 1 1 1"/>
-      </material>
+      <origin xyz="0.0084 0.0077 0.01465" rpy="0.000000 0.000000 0.000000"/>
+      <geometry>
+        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/base.obj"/>
+      </geometry>
+      <material name="mat_rf_bs"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
   </link>
 
   <joint name="rf_rot" type="revolute">
-    <parent link="rf_link_0"/>
-    <child link="rf_link_1"/>
-    <origin xyz="0 0 0.04" rpy="0 0 0"/>
-    <axis xyz="0 1 0"/>
+    <parent link="rf_bs"/>
+    <child link="rf_px"/>
+    <origin xyz="-0.0122 0.0381 0.0145" rpy="-1.570790 0.000000 1.570790"/>
+    <axis xyz="0 0 -1"/>
     <limit lower="-3.14" upper="3.14" effort="10" velocity="10"/>
   </joint>
-
-  <link name="rf_link_1">
+  <link name="rf_px">
     <visual>
-      <origin xyz="0 0 0.02" rpy="0 0 0"/>
-      <geometry><cylinder radius="0.008" length="0.04"/></geometry>
-      <material name="white">
-        <color rgba="1 1 1 1"/>
-      </material>
+      <origin xyz="0.0096 0.0003 0.0007" rpy="-1.570793 -1.570790 0.000003"/>
+      <geometry>
+        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/proximal.obj"/>
+      </geometry>
+      <material name="mat_rf_px"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
   </link>
 
   <joint name="rf_pip" type="revolute">
-    <parent link="rf_link_1"/>
-    <child link="rf_link_2"/>
-    <origin xyz="0 0 0.04" rpy="0 0 0"/>
-    <axis xyz="0 1 0"/>
+    <parent link="rf_px"/>
+    <child link="rf_md"/>
+    <origin xyz="0.015 0.0143 -0.013" rpy="1.570793 -1.570790 -0.000003"/>
+    <axis xyz="0 0 -1"/>
     <limit lower="-3.14" upper="3.14" effort="10" velocity="10"/>
   </joint>
-
-  <link name="rf_link_2">
+  <link name="rf_md">
     <visual>
-      <origin xyz="0 0 0.02" rpy="0 0 0"/>
-      <geometry><cylinder radius="0.008" length="0.04"/></geometry>
-      <material name="white">
-        <color rgba="1 1 1 1"/>
-      </material>
+      <origin xyz="0.0211 -0.0084 0.0097" rpy="-3.141590 0.000000 0.000000"/>
+      <geometry>
+        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/medial.obj"/>
+      </geometry>
+      <material name="mat_rf_md"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
   </link>
 
   <joint name="rf_dip" type="revolute">
-    <parent link="rf_link_2"/>
-    <child link="rf_link_3"/>
-    <origin xyz="0 0 0.04" rpy="0 0 0"/>
-    <axis xyz="0 1 0"/>
+    <parent link="rf_md"/>
+    <child link="rf_ds"/>
+    <origin xyz="0 -0.03609 0.0002" rpy="0.000000 0.000000 0.000000"/>
+    <axis xyz="0 0 -1"/>
     <limit lower="-3.14" upper="3.14" effort="10" velocity="10"/>
   </joint>
-
-  <link name="rf_link_3">
+  <link name="rf_ds">
     <visual>
-      <origin xyz="0 0 0.02" rpy="0 0 0"/>
-      <geometry><cylinder radius="0.008" length="0.04"/></geometry>
-      <material name="white">
-        <color rgba="1 1 1 1"/>
-      </material>
+      <origin xyz="0.0132 -0.0061 0.0145" rpy="3.141590 0.000000 0.000000"/>
+      <geometry>
+        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/distal.obj"/>
+      </geometry>
+      <material name="mat_rf_ds"><color rgba="0.5 0.5 0.5 1"/></material>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" rpy="0.000000 0.000000 0.000000"/>
+      <geometry>
+        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/tip.obj"/>
+      </geometry>
+      <material name="mat_rf_ds"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
   </link>
 
   <joint name="th_cmc" type="revolute">
     <parent link="palm"/>
-    <child link="th_link_0"/>
-    <origin xyz="-0.05 -0.02 0.05" rpy="0 0 0"/>
-    <axis xyz="0 1 0"/>
+    <child link="th_mp"/>
+    <origin xyz="-0.0693 -0.0012 -0.0216" rpy="0.000000 1.570791 0.000000"/>
+    <axis xyz="0 0 -1"/>
     <limit lower="-3.14" upper="3.14" effort="10" velocity="10"/>
   </joint>
-
-  <link name="th_link_0">
+  <link name="th_mp">
     <visual>
-      <origin xyz="0 0 0.02" rpy="0 0 0"/>
-      <geometry><cylinder radius="0.008" length="0.04"/></geometry>
-      <material name="white">
-        <color rgba="1 1 1 1"/>
-      </material>
+      <origin xyz="-0.0053 0.0003 0.00078" rpy="-1.570793 -1.570790 0.000003"/>
+      <geometry>
+        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/proximal.obj"/>
+      </geometry>
+      <material name="mat_th_mp"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
   </link>
 
   <joint name="th_axl" type="revolute">
-    <parent link="th_link_0"/>
-    <child link="th_link_1"/>
-    <origin xyz="0 0 0.04" rpy="0 0 0"/>
-    <axis xyz="0 1 0"/>
+    <parent link="th_mp"/>
+    <child link="th_bs"/>
+    <origin xyz="0 0.0143 -0.013" rpy="1.570793 -1.570790 -0.000003"/>
+    <axis xyz="0 0 -1"/>
     <limit lower="-3.14" upper="3.14" effort="10" velocity="10"/>
   </joint>
-
-  <link name="th_link_1">
+  <link name="th_bs">
     <visual>
-      <origin xyz="0 0 0.02" rpy="0 0 0"/>
-      <geometry><cylinder radius="0.008" length="0.04"/></geometry>
-      <material name="white">
-        <color rgba="1 1 1 1"/>
-      </material>
+      <origin xyz="0.01196 0 -0.0158" rpy="1.570791 0.000000 0.000000"/>
+      <geometry>
+        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/thumb_base.obj"/>
+      </geometry>
+      <material name="mat_th_bs"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
   </link>
 
   <joint name="th_mcp" type="revolute">
-    <parent link="th_link_1"/>
-    <child link="th_link_2"/>
-    <origin xyz="0 0 0.04" rpy="0 0 0"/>
-    <axis xyz="0 1 0"/>
+    <parent link="th_bs"/>
+    <child link="th_px"/>
+    <origin xyz="0 0.0145 -0.017" rpy="-1.570791 0.000000 0.000000"/>
+    <axis xyz="0 0 -1"/>
     <limit lower="-3.14" upper="3.14" effort="10" velocity="10"/>
   </joint>
-
-  <link name="th_link_2">
+  <link name="th_px">
     <visual>
-      <origin xyz="0 0 0.02" rpy="0 0 0"/>
-      <geometry><cylinder radius="0.008" length="0.04"/></geometry>
-      <material name="white">
-        <color rgba="1 1 1 1"/>
-      </material>
+      <origin xyz="0.0439 0.0579 -0.0086" rpy="0.000000 0.000000 0.000000"/>
+      <geometry>
+        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/thumb_proximal.obj"/>
+      </geometry>
+      <material name="mat_th_px"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
   </link>
 
   <joint name="th_ipl" type="revolute">
-    <parent link="th_link_2"/>
-    <child link="th_link_3"/>
-    <origin xyz="0 0 0.04" rpy="0 0 0"/>
-    <axis xyz="0 1 0"/>
+    <parent link="th_px"/>
+    <child link="th_ds"/>
+    <origin xyz="0 0.0466 0.0002" rpy="0.000000 0.000000 3.141590"/>
+    <axis xyz="0 0 -1"/>
     <limit lower="-3.14" upper="3.14" effort="10" velocity="10"/>
   </joint>
-
-  <link name="th_link_3">
+  <link name="th_ds">
     <visual>
-      <origin xyz="0 0 0.02" rpy="0 0 0"/>
-      <geometry><cylinder radius="0.008" length="0.04"/></geometry>
-      <material name="white">
-        <color rgba="1 1 1 1"/>
-      </material>
+      <origin xyz="0.0625 0.0784 0.0489" rpy="0.000000 0.000000 0.000000"/>
+      <geometry>
+        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/thumb_distal.obj"/>
+      </geometry>
+      <material name="mat_th_ds"><color rgba="0.5 0.5 0.5 1"/></material>
+    </visual>
+    <visual>
+      <origin xyz="0 0 0" rpy="0.000000 0.000000 0.000000"/>
+      <geometry>
+        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/thumb_tip.obj"/>
+      </geometry>
+      <material name="mat_th_ds"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
   </link>
 </robot>

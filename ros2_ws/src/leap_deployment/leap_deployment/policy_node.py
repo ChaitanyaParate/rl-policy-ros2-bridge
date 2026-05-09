@@ -35,7 +35,8 @@ class PolicyNode(Node):
         self.declare_parameter('use_sine_wave', False)
         self.use_sine_wave = self.get_parameter('use_sine_wave').get_parameter_value().bool_value
         
-        self.model_path = '/mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/results/best_model/best_model.zip'
+        # Point to the model copied into the local project directory
+        self.model_path = '/mnt/newvolume/Programming/Python/Deep_Learning/Policy_Deployment_via_ROS2/best_model.zip'
         
         self.model = None
         if not self.use_sine_wave:
@@ -74,12 +75,19 @@ class PolicyNode(Node):
             # Inference mode
             # Construct a 39-dim observation:
             # [0:16] = real joint positions feedback
-            # [16:39] = zeros (dummy velocities, object state, goal state)
             obs = np.zeros(39, dtype=np.float32)
             obs[0:16] = self.current_joint_positions
-            obs[38] = 1.0 # Valid quaternion (w=1)
             
-            action, _states = self.model.predict(obs, deterministic=True)
+            # [16:32] = joint velocities (keep 0)
+            
+            # [32:35] = object position (use spawn pos from env to prevent wild grasping)
+            obs[32:35] = [0.0, 0.04, 0.085]
+            
+            # [35:39] = object quaternion [w, x, y, z]
+            obs[35] = 1.0
+            
+            action, _states = self.model.predict(obs, deterministic=False)
+            self.get_logger().info(f'Action max: {max(action):.2f}, min: {min(action):.2f}')
             msg.data = [float(x) for x in action]
             
         self.publisher_.publish(msg)
