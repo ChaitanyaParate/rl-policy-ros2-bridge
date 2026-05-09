@@ -2,10 +2,15 @@ import os
 import xml.etree.ElementTree as ET
 from scipy.spatial.transform import Rotation as R
 
-mjcf_path = "/mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/right_hand_grasp.xml"
-scene_path = "/mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/grasp_scene.xml"
-mesh_dir = "/mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets"
-urdf_out = "/mnt/newvolume/Programming/Python/Deep_Learning/Policy_Deployment_via_ROS2/ros2_ws/src/leap_deployment/urdf/leap_hand.urdf"
+# All paths are relative to this script's directory (project root).
+# MJCF sources are copied locally into ./leap_hand_mjcf/ so the project
+# is self-contained and does not depend on sibling repositories.
+_HERE = os.path.dirname(os.path.abspath(__file__))
+
+mjcf_path = os.path.join(_HERE, "leap_hand_mjcf", "right_hand_grasp.xml")
+scene_path = os.path.join(_HERE, "leap_hand_mjcf", "grasp_scene.xml")
+mesh_dir   = os.path.join(_HERE, "leap_hand_mjcf", "assets")
+urdf_out   = os.path.join(_HERE, "ros2_ws", "src", "leap_deployment", "urdf", "leap_hand.urdf")
 
 # 1. Read right_hand_grasp.xml
 tree_hand = ET.parse(mjcf_path)
@@ -69,11 +74,11 @@ def build_urdf(node, parent_name="base_link", urdf_xml=""):
             if geom_class == 'visual' or geom.get('mesh') is not None or geom_class in ['tip', 'thumb_tip']:
                 mesh_name = geom.get('mesh', geom_class)
                 actual_mesh_file = mesh_mapping.get(mesh_name, mesh_name + ".obj")
-                mesh_path = os.path.join(mesh_dir, actual_mesh_file)
+                # Use package:// URI so RViz2 resolves meshes portably
                 urdf_xml += f'''    <visual>
       <origin xyz="{geom_pos}" rpy="{grpy[0]:.6f} {grpy[1]:.6f} {grpy[2]:.6f}"/>
       <geometry>
-        <mesh filename="file://{mesh_path}"/>
+        <mesh filename="package://leap_deployment/urdf/assets/{actual_mesh_file}"/>
       </geometry>
       <material name="mat_{body_name}"><color rgba="{rgba}"/></material>
     </visual>

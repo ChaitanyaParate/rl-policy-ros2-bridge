@@ -30,7 +30,7 @@
     <visual>
       <origin xyz="-0.02 0.02575 -0.0347" rpy="0.000000 0.000000 0.000000"/>
       <geometry>
-        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/palm_right.obj"/>
+        <mesh filename="package://leap_deployment/urdf/assets/palm_right.obj"/>
       </geometry>
       <material name="mat_palm"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
@@ -47,7 +47,7 @@
     <visual>
       <origin xyz="0.0084 0.0077 0.01465" rpy="0.000000 0.000000 0.000000"/>
       <geometry>
-        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/base.obj"/>
+        <mesh filename="package://leap_deployment/urdf/assets/base.obj"/>
       </geometry>
       <material name="mat_if_bs"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
@@ -64,7 +64,7 @@
     <visual>
       <origin xyz="0.0096 0.0002 0.0007" rpy="-1.570793 -1.570790 0.000003"/>
       <geometry>
-        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/proximal.obj"/>
+        <mesh filename="package://leap_deployment/urdf/assets/proximal.obj"/>
       </geometry>
       <material name="mat_if_px"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
@@ -81,7 +81,7 @@
     <visual>
       <origin xyz="0.0211 -0.0084 0.0097" rpy="-3.141593 0.000000 0.000000"/>
       <geometry>
-        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/medial.obj"/>
+        <mesh filename="package://leap_deployment/urdf/assets/medial.obj"/>
       </geometry>
       <material name="mat_if_md"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
@@ -98,14 +98,14 @@
     <visual>
       <origin xyz="0.0132 -0.0061 0.0144" rpy="3.141593 0.000000 0.000000"/>
       <geometry>
-        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/distal.obj"/>
+        <mesh filename="package://leap_deployment/urdf/assets/distal.obj"/>
       </geometry>
       <material name="mat_if_ds"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
     <visual>
       <origin xyz="0 0 0" rpy="0.000000 0.000000 0.000000"/>
       <geometry>
-        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/tip.obj"/>
+        <mesh filename="package://leap_deployment/urdf/assets/tip.obj"/>
       </geometry>
       <material name="mat_if_ds"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
@@ -122,7 +122,7 @@
     <visual>
       <origin xyz="0.0084 0.0077 0.01465" rpy="0.000000 0.000000 0.000000"/>
       <geometry>
-        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/base.obj"/>
+        <mesh filename="package://leap_deployment/urdf/assets/base.obj"/>
       </geometry>
       <material name="mat_mf_bs"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
@@ -139,7 +139,7 @@
     <visual>
       <origin xyz="0.0096 0.0003 0.0007" rpy="-1.570793 -1.570790 0.000003"/>
       <geometry>
-        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/proximal.obj"/>
+        <mesh filename="package://leap_deployment/urdf/assets/proximal.obj"/>
       </geometry>
       <material name="mat_mf_px"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
@@ -156,7 +156,7 @@
     <visual>
       <origin xyz="0.0211 -0.0084 0.0097" rpy="-3.141590 0.000000 0.000000"/>
       <geometry>
-        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/medial.obj"/>
+        <mesh filename="package://leap_deployment/urdf/assets/medial.obj"/>
       </geometry>
       <material name="mat_mf_md"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
@@ -173,14 +173,14 @@
     <visual>
       <origin xyz="0.0132 -0.0061 0.0145" rpy="3.141590 0.000000 0.000000"/>
       <geometry>
-        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/distal.obj"/>
+        <mesh filename="package://leap_deployment/urdf/assets/distal.obj"/>
       </geometry>
       <material name="mat_mf_ds"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
     <visual>
       <origin xyz="0 0 0" rpy="0.000000 0.000000 0.000000"/>
       <geometry>
-        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/tip.obj"/>
+        <mesh filename="package://leap_deployment/urdf/assets/tip.obj"/>
       </geometry>
       <material name="mat_mf_ds"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
@@ -197,7 +197,7 @@
     <visual>
       <origin xyz="0.0084 0.0077 0.01465" rpy="0.000000 0.000000 0.000000"/>
       <geometry>
-        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/base.obj"/>
+        <mesh filename="package://leap_deployment/urdf/assets/base.obj"/>
       </geometry>
       <material name="mat_rf_bs"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
@@ -214,7 +214,7 @@
     <visual>
       <origin xyz="0.0096 0.0003 0.0007" rpy="-1.570793 -1.570790 0.000003"/>
       <geometry>
-        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/proximal.obj"/>
+        <mesh filename="package://leap_deployment/urdf/assets/proximal.obj"/>
       </geometry>
       <material name="mat_rf_px"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
@@ -231,7 +231,7 @@
     <visual>
       <origin xyz="0.0211 -0.0084 0.0097" rpy="-3.141590 0.000000 0.000000"/>
       <geometry>
-        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/medial.obj"/>
+        <mesh filename="package://leap_deployment/urdf/assets/medial.obj"/>
       </geometry>
       <material name="mat_rf_md"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
@@ -248,14 +248,14 @@
     <visual>
       <origin xyz="0.0132 -0.0061 0.0145" rpy="3.141590 0.000000 0.000000"/>
       <geometry>
-        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/distal.obj"/>
+        <mesh filename="package://leap_deployment/urdf/assets/distal.obj"/>
       </geometry>
       <material name="mat_rf_ds"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
     <visual>
       <origin xyz="0 0 0" rpy="0.000000 0.000000 0.000000"/>
       <geometry>
-        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/tip.obj"/>
+        <mesh filename="package://leap_deployment/urdf/assets/tip.obj"/>
       </geometry>
       <material name="mat_rf_ds"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
@@ -272,7 +272,7 @@
     <visual>
       <origin xyz="-0.0053 0.0003 0.00078" rpy="-1.570793 -1.570790 0.000003"/>
       <geometry>
-        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/proximal.obj"/>
+        <mesh filename="package://leap_deployment/urdf/assets/proximal.obj"/>
       </geometry>
       <material name="mat_th_mp"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
@@ -289,7 +289,7 @@
     <visual>
       <origin xyz="0.01196 0 -0.0158" rpy="1.570791 0.000000 0.000000"/>
       <geometry>
-        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/thumb_base.obj"/>
+        <mesh filename="package://leap_deployment/urdf/assets/thumb_base.obj"/>
       </geometry>
       <material name="mat_th_bs"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
@@ -306,7 +306,7 @@
     <visual>
       <origin xyz="0.0439 0.0579 -0.0086" rpy="0.000000 0.000000 0.000000"/>
       <geometry>
-        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/thumb_proximal.obj"/>
+        <mesh filename="package://leap_deployment/urdf/assets/thumb_proximal.obj"/>
       </geometry>
       <material name="mat_th_px"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
@@ -323,14 +323,14 @@
     <visual>
       <origin xyz="0.0625 0.0784 0.0489" rpy="0.000000 0.000000 0.000000"/>
       <geometry>
-        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/thumb_distal.obj"/>
+        <mesh filename="package://leap_deployment/urdf/assets/thumb_distal.obj"/>
       </geometry>
       <material name="mat_th_ds"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>
     <visual>
       <origin xyz="0 0 0" rpy="0.000000 0.000000 0.000000"/>
       <geometry>
-        <mesh filename="file:///mnt/newvolume/Programming/Python/Deep_Learning/leap-dexterous-grasping/mujoco_menagerie/leap_hand/assets/thumb_tip.obj"/>
+        <mesh filename="package://leap_deployment/urdf/assets/thumb_tip.obj"/>
       </geometry>
       <material name="mat_th_ds"><color rgba="0.5 0.5 0.5 1"/></material>
     </visual>

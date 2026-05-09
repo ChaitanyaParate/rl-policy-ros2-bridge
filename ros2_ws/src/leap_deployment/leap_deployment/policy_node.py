@@ -1,8 +1,13 @@
 import sys
 import os
 
-# Force the node to recognize the virtual environment's site-packages BEFORE system packages
-venv_site_packages = '/mnt/newvolume/Programming/Python/Deep_Learning/Policy_Deployment_via_ROS2/leap_ros_venv/lib/python3.12/site-packages'
+# Derive project root from this file's location:
+# policy_node.py → leap_deployment/ → leap_deployment (pkg) → src/ → ros2_ws/ → project root
+_THIS_FILE = os.path.abspath(__file__)
+_PROJECT_ROOT = os.path.normpath(os.path.join(os.path.dirname(_THIS_FILE), '..', '..', '..', '..', '..'))
+
+# Activate the local venv so stable_baselines3 is importable without system-wide install
+venv_site_packages = os.path.join(_PROJECT_ROOT, 'leap_ros_venv', 'lib', 'python3.12', 'site-packages')
 if os.path.exists(venv_site_packages):
     sys.path.insert(0, venv_site_packages)
 
@@ -35,8 +40,8 @@ class PolicyNode(Node):
         self.declare_parameter('use_sine_wave', False)
         self.use_sine_wave = self.get_parameter('use_sine_wave').get_parameter_value().bool_value
         
-        # Point to the model copied into the local project directory
-        self.model_path = '/mnt/newvolume/Programming/Python/Deep_Learning/Policy_Deployment_via_ROS2/best_model.zip'
+        # Locate best_model.zip relative to the project root (works on any clone)
+        self.model_path = os.path.join(_PROJECT_ROOT, 'best_model.zip')
         
         self.model = None
         if not self.use_sine_wave:
