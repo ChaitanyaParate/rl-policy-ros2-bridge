@@ -1,12 +1,11 @@
 import sys
 import os
 
-# Derive project root from this file's location:
-# policy_node.py → leap_deployment/ → leap_deployment (pkg) → src/ → ros2_ws/ → project root
-_THIS_FILE = os.path.abspath(__file__)
-_PROJECT_ROOT = os.path.normpath(os.path.join(os.path.dirname(_THIS_FILE), '..', '..', '..', '..', '..'))
 
-# Activate the local venv so stable_baselines3 is importable without system-wide install
+_THIS_FILE = os.path.abspath(__file__)
+_PROJECT_ROOT = os.path.normpath(os.path.join(os.path.dirname(_THIS_FILE), '..', '..', '..', '..'))
+
+
 venv_site_packages = os.path.join(_PROJECT_ROOT, 'leap_ros_venv', 'lib', 'python3.12', 'site-packages')
 if os.path.exists(venv_site_packages):
     sys.path.insert(0, venv_site_packages)

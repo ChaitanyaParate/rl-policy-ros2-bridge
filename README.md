@@ -1,8 +1,8 @@
 # Policy Deployment via ROS 2
 
-This repository contains the ROS 2 integration pipeline for deploying a trained reinforcement learning policy (PPO) for dexterous grasping with the LEAP Hand. 
+This repository contains the ROS 2 (Humble) integration pipeline for deploying a trained PPO policy for dexterous grasping with the LEAP Hand. It loads the trained Stable Baselines 3 model, streams continuous joint commands through a kinematic interpolator, and visualizes the resulting motion in RViz2.
 
-The primary objective of this task is to demonstrate the deployment of a simulated RL policy into a standard ROS 2 architecture, streaming continuous joint commands to a visualizer (RViz2) and simulating rudimentary contact physics for grasping.
+> **Deployment caveat:** The pipeline demonstrates ROS integration correctness, not policy performance fidelity. The trained policy expects real joint velocities (`obs[16:32]`) and a live object pose (`obs[32:39]`) at every timestep; this ROS pipeline cannot supply either. Both slices are zeroed or hardcoded, which constitutes a distribution shift from the training observation. The RViz "PPO Inference" mode shows the policy running on corrupted observations — see `Report_task_B.md` §2.1 and §5 for full analysis.
 
 ## 🚀 Architecture
 
@@ -24,9 +24,9 @@ graph TD
 
 ### Nodes
 
-1. **`policy_node`**: Loads the trained Stable Baselines 3 PPO model (or a fallback sine wave if the model is unavailable/fails to load). It evaluates the continuous action space at 10 Hz and publishes targets to `/hand/joint_commands`.
-2. **`interface_node`**: Acts as a bridge and kinematic interpolator. It ingests delta-position commands, clips them to physical joint limits, applies an exponential moving average (100 Hz) for smooth trajectories, and publishes standard `sensor_msgs/JointState`.
-3. **`robot_state_publisher`**: Parses `leap_hand.urdf` to broadcast static transforms and link meshes.
+1. **`policy_node`**: Loads the trained SB3 PPO model (or a sine-wave fallback). Runs inference at 10 Hz and publishes raw `[-1, 1]` delta-position targets to `/hand/joint_commands`. In inference mode, joint positions are read back from `/joint_states`; velocities and object pose cannot be recovered from this pipeline and are zeroed/hardcoded.
+2. **`interface_node`**: Kinematic bridge. Interprets each action as a delta on the current target position (scaled by `max_delta = 0.05 rad`), clips to per-joint physical limits, and publishes smooth `sensor_msgs/JointState` at 100 Hz via an exponential moving average (α = 0.15, τ ≈ 61.5 ms).
+3. **`robot_state_publisher`**: Parses `leap_hand.urdf` to broadcast the full TF tree and link meshes to RViz2.
 
 ## ⚙️ Building the Workspace
 
@@ -52,7 +52,23 @@ A single launch file orchestrates the entire deployment:
 ros2 launch leap_deployment display.launch.py
 ```
 
-This will automatically launch the nodes along with a pre-configured RViz instance. You will see the LEAP Hand continuously execute its policy (or sine wave).
+This launches `policy_node`, `interface_node`, `robot_state_publisher`, and RViz2 with a pre-configured perspective.
 
-## 🔧 Fallback Note
-If the SB3 PPO model cannot be located locally, the `policy_node` gracefully degrades to generating a programmatic sine-wave trajectory that opens and closes all fingers. This serves to robustly demonstrate the ROS 2 integration pipeline irrespective of RL convergence.
+**To force sine-wave mode** (demonstrates the full pipeline without requiring the trained model):
+
+```bash
+ros2 launch leap_deployment display.launch.py use_sine_wave:=true
+```
+
+## 🔧 Fallback Behaviour
+
+If `best_model.zip` cannot be located or fails to load, `policy_node` automatically falls back to a programmatic sine-wave trajectory. This allows the complete ROS pipeline — node graph, TF broadcast, kinematic smoothing, RViz rendering — to be verified independently of the trained model.
+
+## 📹 Recordings
+
+Two screen recordings are in `videos/`:
+
+| File | Mode | What it shows |
+|---|---|---|
+| `loaded_model.webm` | PPO Inference | Model loaded and queried; hand moves under policy output. Demonstrates ROS inference pipeline functionality. Due to the observation mismatch above, this is not a valid policy evaluation. |
+| `sine_wave.webm` | Sine-wave fallback | Full ROS pipeline verified without the trained model. |

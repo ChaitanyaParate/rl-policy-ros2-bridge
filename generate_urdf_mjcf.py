@@ -2,9 +2,6 @@ import os
 import xml.etree.ElementTree as ET
 from scipy.spatial.transform import Rotation as R
 
-# All paths are relative to this script's directory (project root).
-# MJCF sources are copied locally into ./leap_hand_mjcf/ so the project
-# is self-contained and does not depend on sibling repositories.
 _HERE = os.path.dirname(os.path.abspath(__file__))
 
 mjcf_path = os.path.join(_HERE, "leap_hand_mjcf", "right_hand_grasp.xml")
