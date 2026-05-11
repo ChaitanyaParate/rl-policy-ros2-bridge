@@ -1,6 +1,6 @@
 # Policy Deployment via ROS 2
 
-This repository contains the ROS 2 (Humble) integration pipeline for deploying a trained PPO policy for dexterous grasping with the LEAP Hand. It loads the trained Stable Baselines 3 model, streams continuous joint commands through a kinematic interpolator, and visualizes the resulting motion in RViz2.
+This repository contains the ROS 2 (Jazzy) integration pipeline for deploying a trained PPO policy for dexterous grasping with the LEAP Hand. It loads the trained Stable Baselines 3 model, streams continuous joint commands through a kinematic interpolator, and visualizes the resulting motion in RViz2.
 
 > **Deployment caveat:** The pipeline demonstrates ROS integration correctness, not policy performance fidelity. The trained policy expects real joint velocities (`obs[16:32]`) and a live object pose (`obs[32:39]`) at every timestep; this ROS pipeline cannot supply either. Both slices are zeroed or hardcoded, which constitutes a distribution shift from the training observation. The RViz "PPO Inference" mode shows the policy running on corrupted observations — see `Report_task_B.md` §2.1 and §5 for full analysis.
 
@@ -30,9 +30,9 @@ graph TD
 
 ## ⚙️ Building the Workspace
 
-1. Source your ROS 2 Humble installation:
+1. Source your ROS 2 Jazzy installation:
    ```bash
-   source /opt/ros/humble/setup.bash
+   source /opt/ros/Jazzy/setup.bash
    ```
 2. Navigate to the `ros2_ws` directory and build:
    ```bash
