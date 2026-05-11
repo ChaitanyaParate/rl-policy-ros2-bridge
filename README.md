@@ -63,12 +63,3 @@ ros2 launch leap_deployment display.launch.py use_sine_wave:=true
 ## 🔧 Fallback Behaviour
 
 If `best_model.zip` cannot be located or fails to load, `policy_node` automatically falls back to a programmatic sine-wave trajectory. This allows the complete ROS pipeline — node graph, TF broadcast, kinematic smoothing, RViz rendering — to be verified independently of the trained model.
-
-## 📹 Recordings
-
-Two screen recordings are in `videos/`:
-
-| File | Mode | What it shows |
-|---|---|---|
-| `loaded_model.webm` | PPO Inference | Model loaded and queried; hand moves under policy output. Demonstrates ROS inference pipeline functionality. Due to the observation mismatch above, this is not a valid policy evaluation. |
-| `sine_wave.webm` | Sine-wave fallback | Full ROS pipeline verified without the trained model. |
